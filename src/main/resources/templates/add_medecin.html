@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des médecins</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <!-- Utilisation de Thymeleaf pour afficher dynamiquement le titre -->
+            <h2 th:if="${medecin.id == null}">Ajouter un médecin</h2>
+            <h2 th:unless="${medecin.id == null}">Modifier un médecin</h2>
+        </div>
+        <div class="card-body">
+            <form th:object="${medecin}" th:action="@{/medecin/save}" method="post">
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" th:value="${medecin.nom}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" th:value="${medecin.prenom}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" th:value="${medecin.email}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="numTel" class="form-label">Numéro de téléphone</label>
+                    <input type="tel" class="form-control" id="numTel" name="numTel" th:value="${medecin.numTel}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('numTel')}" th:errors="*{numTel}"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="specialite" class="form-label">Spécialité</label>
+                    <input type="text" class="form-control" id="specialite" name="specialite"
+                           th:value="${medecin.specialite}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('specialite')}" th:errors="*{specialite}"></span>
+                </div>
+                <input type="hidden" name="id" th:value="${medecin.id}">
+                <button type="submit" class="btn btn-primary" th:if="${medecin.id == null}">Ajouter</button>
+                <button type="submit" class="btn btn-primary" th:unless="${medecin.id == null}">Modifier</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-885-1">
+<title>Insert title here</title>
+<link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+				<h2  th:if="${patient.id == null}">ajouter un patients</h2>
+			<h2 th:unless="${patient.id == null}">modifier  patients</h2>
+			</div>
+			
+			<div class="card-body">
+				
+				
+				
+				
+				<form  action="/save" method="post">
+  <div class="mb-3">
+    <label for="nom" class="form-label">nom</label>
+    <input type="text" class="form-control" id="nom"  name="nom" th:value="${patient.nom}">
+    <span class="text-danger" th:errors="${patient.nom}"></span>
+   
+  </div>
+  
+   <div class="mb-3">
+    <label for="prenom" class="form-label">prenom</label>
+    <input type="text" class="form-control" id="prenom"  name="prenom"th:value="${patient.prenom}">
+    <span class="text-danger" th:errors="${patient.prenom}"></span>
+   
+  </div>
+  
+   <div class="mb-3">
+    <label for="dateDeNaissance"class="form-label">dateDeNaissance</label>
+    <input type="date" class="form-control" id="dateDeNaissance"  name="dateDeNaissance"th:value="${patient.dateDeNaissance}">
+    <span class="text-danger" th:errors="${patient.dateDeNaissance}"></span>
+  </div>
+  
+     <div class="mb-3">
+    <label for="numTel"class="form-label">numTel</label>
+    <input type="number" class="form-control" id="numTel"  name="numTel"th:value="${patient.numTel}">
+    <span class="text-danger" th:errors="${patient.numTel}"></span>
+  </div>
+  
+  <input type="hidden" name="id" th:value="${patient.id}">
+  
+  <button type="submit" class="btn btn-primary" th:if="${patient.id == null}">Ajouter</button>
+ <button type="submit" class="btn btn-primary" th:unless="${patient.id == null}">Modifier</button>
+ 
+</form>
+				
+				
+				
+				
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

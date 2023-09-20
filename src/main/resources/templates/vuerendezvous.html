@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RendezVous List</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2>Liste des rendez-vous</h2>
+            <a href="/index" class="btn btn-success">Patient</a>
+            <a href="/medecin/index" class="btn btn-success">Medecin</a>
+            <a href="/rendezvous/add" class="btn btn-success">Add RendezVous</a>
+            <a href="/consultation" class="btn btn-success">consultation</a>
+
+        </div>
+
+        <div class="card-body">
+	        <form th:action="@{/rendezvous}" method="get" class="mb-3">
+			    <!-- Remove the date-related input field -->
+			    <div class="input-group">
+			        <input type="date" class="form-control" name="searchQuery"
+			               placeholder="Search by date or other criteria">
+			        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>
+			    </div>
+			</form>
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Heure</th>
+                    <th>patient</th>
+                    <th>médecin</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="r : ${data}">
+                    <td th:text="${r.id}"></td>
+                    <td th:text="${r.dateRdv}"></td>
+                    <td th:text="${r.heurRdv}"></td>
+                    <td  th:text="${r.patient.nom + ' ' + r.patient.prenom}"></td>
+                    <td  th:text="${r.medecin.nom + ' ' + r.medecin.prenom}"></td>
+                    
+                    
+                    <td>
+                        <a class="btn btn-danger" th:href="@{'/rendezvous/delete/' + ${r.id}}"><i
+                                class="fa-solid fa-trash"></i></a>
+                        <a th:href="@{'/rendezvous/update/' + ${r.id}}" class="btn btn-warning"><i
+                                class="fa-solid fa-pen-to-square"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <ul class="nav nav-pills">
+			    <li th:each="i, s : ${pages}">
+			        <!-- Include searchQuery in pagination links -->
+			        <a th:href="@{/rendezvous(searchQuery=${searchQuery},page=${s.index})}" th:text="${s.index + 1}"
+			           th:class="${current == s.index ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'}"></a>
+			    </li>
+			</ul>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

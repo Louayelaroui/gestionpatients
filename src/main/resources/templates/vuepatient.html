@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-885-1">
+<title>Insert title here</title>
+<link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+	<div class="container">
+		
+	<div class="card">
+		<div class="card-header d-flex justify-content-between align-items-center">
+                <h2>Liste des patients</h2>
+                <a href="/rendezvous" class="btn btn-success">RendezVous</a>
+                <a href="/formpatient" class="btn btn-success">Add Patient</a>
+                
+            </div>
+		
+		
+		
+ <div class="card-body">
+	 
+			 <form th:action="@{/index}" method="get" class="mb-3">
+		    <div class="input-group">
+		        <input type="text" th:value="${searchQuery}" class="form-control" name="searchQuery" placeholder="Search by name or other criteria">
+		        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>
+		    </div>
+		</form>
+
+	<table class="table">
+		<thead>
+	<tr>
+		<th>#</th>
+		<th>nom</th>
+		<th>prenom</th>
+		<th>dateDeNaissance</th>
+		<th>numTel</th>
+		<th>action</th>
+	</tr>
+	</thead>
+	<tbody>
+<tr th:each="p:${data}">
+	<td th:text="${p.id}"></td>
+	<td th:text="${p.nom}"></td>
+	<td th:text="${p.prenom}"></td>
+	<td th:text="${p.dateDeNaissance}"></td>
+	<td th:text="${p.numTel}"></td>
+	<td>
+		<a class="btn btn-danger" th:href="@{'/delete/' + ${p.id}}"><i class="fa-solid fa-trash"></i></a>
+		<a  th:href="@{'/update/' + ${p.id}}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+
+		</td>
+	
+</tr>
+</tbody>
+</table>
+<ul class="nav nav-pills">
+	<li th:each="i,s:${pages}">
+	    <a th:href="@{/index(searchQuery=${searchQuery},page=${s.index})}" th:text="${s.index+1}" th:class="${current==s.index?'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}"></a>
+	</li>
+	
+</ul>
+
+</div>
+	</div>
+</div>
+</body>
+</html>

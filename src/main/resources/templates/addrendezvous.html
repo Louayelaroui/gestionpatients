@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RendezVous Form</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 th:if="${rendezVous.id == null}">Add RendezVous</h2>
+            <h2 th:if="${rendezVous.id != null}">Update RendezVous</h2>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/rendezvous/save}" method="post">
+                <div class="mb-3">
+                    <label for="dateRdv" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="dateRdv" name="dateRdv"
+                           th:value="${rendezVous.dateRdv}">
+                   
+                </div>
+                <div class="mb-3">
+                    <label for="heureRdv" class="form-label">Heure</label>
+                    <input type="text" class="form-control" id="heureRdv" name="heurRdv"
+                           th:value="${rendezVous.heurRdv}">
+                  
+                </div>
+                <div class="mb-3">
+                    <label for="patient" class="form-label">Patient</label>
+                   <select class="form-select" id="patient" name="patient.id">
+				    <option value="">Select a patient</option>
+				    <option th:each="patient : ${patients}" th:value="${patient.id}"
+				        th:text="${patient.nom + ' ' + patient.prenom}"
+				        th:selected="${rendezVous.patient != null && patient.id == rendezVous.patient.id}"></option>
+				</select>
+
+                </div>
+                <div class="mb-3">
+                    <label for="medecin" class="form-label">Medecin</label>
+                   <select class="form-select" id="medecin" name="medecin.id">
+				    <option value="">Select a medecin</option>
+				    <option th:each="medecin : ${medecins}" th:value="${medecin.id}"
+				        th:text="${medecin.nom + ' ' + medecin.prenom}"
+				        th:selected="${rendezVous.medecin != null && medecin.id == rendezVous.medecin.id}"></option>
+				</select>
+
+
+               
+                </div>
+                <input type="hidden" name="id" th:value="${rendezVous.id}">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

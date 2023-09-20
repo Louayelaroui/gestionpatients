@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des médecins</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2>Liste des médecins</h2>
+            <a href="/rendezvous" class="btn btn-success">RendezVous</a>
+            <a href="/medecin/formmedecin" class="btn btn-success">Ajouter un Médecin</a>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/medecin/index}" method="get" class="mb-3">
+                <div class="input-group">
+                    <input type="text" th:value="${searchQuery}" class="form-control" name="searchQuery"
+                           placeholder="Rechercher par nom ou autres critères">
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Rechercher</button>
+                </div>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Numéro de téléphone</th>
+                    <th>Spécialité</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p, rowStat : ${data}">
+                    <td th:text="${rowStat.index + 1}"></td>
+                    <td th:text="${p.nom}"></td>
+                    <td th:text="${p.prenom}"></td>
+                    <td th:text="${p.email}"></td>
+                    <td th:text="${p.numTel}"></td>
+                    <td th:text="${p.specialite}"></td>
+                    <td>
+                        <a class="btn btn-danger" th:href="@{'/medecin/delete/' + ${p.id}}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <a th:href="@{'/medecin/update/' + ${p.id}}" class="btn btn-warning">
+                            <i class="fas fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="i, s : ${pages}">
+                    <a th:href="@{/medecin/index(searchQuery=${searchQuery}, page=${s.index})}"
+                       th:text="${s.index + 1}"
+                       th:class="${current == s.index ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RendezVous List</title>
+    <link href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2>Liste des consultations</h2>
+            <a href="/consultation/add" class="btn btn-success">Add consultation</a>
+
+
+        </div>
+
+        <div class="card-body">
+            <form th:action="@{/consultation}" method="get" class="mb-3">
+                <!-- Remove the date-related input field -->
+                <div class="input-group">
+                    <input type="date" class="form-control" name="searchQuery"
+                           placeholder="Search by date or other criteria">
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </form>
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>prix</th>
+                    <th>Rapport</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cons : ${data}">
+                    <td th:text="${cons.id}"></td>
+                    <td th:text="${cons.dateconsultation}"></td>
+                    <td th:text="${cons.prixcconsultation}"></td>
+                    <td th:text="${cons.raportconsultation}"></td>
+                    <td>
+                        <a class="btn btn-danger" th:href="@{'/consultation/delete/' + ${cons.id}}"><i
+                                class="fa-solid fa-trash"></i></a>
+                        <a th:href="@{'/consultation/update/' + ${cons.id}}" class="btn btn-warning"><i
+                                class="fa-solid fa-pen-to-square"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="i, s : ${pages}">
+                    <!-- Include searchQuery in pagination links -->
+                    <a th:href="@{/consultation(searchQuery=${searchQuery},page=${s.index})}" th:text="${s.index + 1}"
+                       th:class="${current == s.index ? 'btn btn-primary ms-1' : 'btn btn-outline-primary ms-1'}"></a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
