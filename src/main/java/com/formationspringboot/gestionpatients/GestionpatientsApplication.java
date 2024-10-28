@@ -38,7 +38,7 @@ public class GestionpatientsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Create and save a Patient
-        Patient patient = new Patient(null, "ilhem", "amiri", new Date(), 122323);
+        /*Patient patient = new Patient(null, "ilhem", "amiri", new Date(), 122323);
         patientRepository.save(patient);
        // create and save Patint :
 
@@ -68,6 +68,6 @@ public class GestionpatientsApplication implements CommandLineRunner {
         List<RendezVous> rendezVousList = rendezVousRepository.findAll();
         System.out.println("Patients: " + patients);
         System.out.println("Medecins: " + medecins);
-        System.out.println("RendezVous: " + rendezVousList);
+        System.out.println("RendezVous: " + rendezVousList);*/
     }
 }

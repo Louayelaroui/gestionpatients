@@ -2,6 +2,8 @@ package com.formationspringboot.gestionpatients.entites;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +32,7 @@ public class Medecin {
     private String numTel;
 
     private String specialite;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "medecin", cascade = CascadeType.ALL)
     private List<RendezVous> rendezVousList;
 
