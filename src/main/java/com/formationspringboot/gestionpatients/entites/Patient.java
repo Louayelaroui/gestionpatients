@@ -29,7 +29,7 @@ public class Patient {
 	@DateTimeFormat (pattern="yyyy-MM-dd")
 	
 	private Date dateDeNaissance;
-	
+	private String medicalImage;
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<RendezVous> rendezVousList;
 
@@ -73,6 +73,12 @@ public class Patient {
 	}
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	public String getMedicalImage() {
+		return medicalImage;
+	}
+	public void setMedicalImage(String medicalImage) {
+		this.medicalImage = medicalImage;
 	}
 	public String getPrenom() {
 		return prenom;

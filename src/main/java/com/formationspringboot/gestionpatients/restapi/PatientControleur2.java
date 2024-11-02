@@ -1,6 +1,7 @@
 package com.formationspringboot.gestionpatients.restapi;
 
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -18,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.MediaType;
 import com.formationspringboot.gestionpatients.entites.Patient;
 import com.formationspringboot.gestionpatients.service.IServicePatient;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 
@@ -54,20 +57,19 @@ public class PatientControleur2 {
 	    sp.deletePatient(id);
 	   
 	}
-//	
-//
-//	@GetMapping("/formpatient")
-//	public String addPatient(Model m) {
-//		m.addAttribute("patient",new Patient());
-//		return "add";
-//	}
+
 	
-	@PostMapping("/save")
-	public void savePatient(@RequestBody Patient p ) {
-		
-		sp.addPatient(p);
-		
-	}
+    @GetMapping(value = "/image/{id}",produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getImage(@PathVariable Long id) throws IOException {
+        return sp.getMedicalImage(id);
+    }
+
+    @PostMapping("/save")
+    public void addProduct(@RequestParam String p, @RequestParam MultipartFile mf) throws IOException {
+        Patient patient=new ObjectMapper().readValue(p,Patient.class);
+        sp.addPatient(patient,mf);
+    }
+    
 	
 	@PutMapping("/update/{id}")
 	public void update(@RequestBody Patient p  ) {
