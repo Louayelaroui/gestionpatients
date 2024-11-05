@@ -1,10 +1,13 @@
-package com.formationspringboot.gestionpatients.web;
+package com.gestionpatients.web;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.gestionpatients.entites.Medecin;
+import com.gestionpatients.entites.Patient;
+import com.gestionpatients.service.IServiceMedecin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -16,12 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.formationspringboot.gestionpatients.entites.Patient;
-import com.formationspringboot.gestionpatients.entites.Medecin;
-import com.formationspringboot.gestionpatients.entites.RendezVous;
-import com.formationspringboot.gestionpatients.service.IServiceRendezVous;
-import com.formationspringboot.gestionpatients.service.IServiceMedecin;
-import com.formationspringboot.gestionpatients.service.IServicePatient;
+import com.gestionpatients.entites.RendezVous;
+import com.gestionpatients.service.IServiceRendezVous;
+import com.gestionpatients.service.IServicePatient;
 
 import jakarta.validation.Valid;
 

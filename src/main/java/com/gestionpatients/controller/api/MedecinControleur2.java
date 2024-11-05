@@ -1,17 +1,14 @@
-package com.formationspringboot.gestionpatients.restapi;
+package com.gestionpatients.restapi;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gestionpatients.entites.Medecin;
+import com.gestionpatients.service.IServiceMedecin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.formationspringboot.gestionpatients.entites.Medecin;
-import com.formationspringboot.gestionpatients.service.IServiceMedecin;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -21,7 +18,7 @@ public class MedecinControleur2 {
     private final IServiceMedecin md;
 
 
-    // Get paginated list of medecins with optional search query
+
     @GetMapping
     public ResponseEntity<Page<Medecin>> getMedecins(
             @RequestParam(name = "searchQuery", defaultValue = "") String searchQuery,
@@ -31,33 +28,32 @@ public class MedecinControleur2 {
         return ResponseEntity.ok(pageMedecins);
     }
 
-    // Delete a medecin by ID
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMedecin(@PathVariable Long id) {
         md.deleteMedecin(id);
         return ResponseEntity.noContent().build();
     }
 
-    // Add a new medecin
+
     @PostMapping
     public ResponseEntity<String> saveMedecin(@Valid @RequestBody Medecin medecin) {
         md.addMedecin(medecin);
         return ResponseEntity.status(HttpStatus.CREATED).body("Medecin added successfully");
     }
 
-    // Update an existing medecin by ID
+
     @PutMapping("/{id}")
     public ResponseEntity<String> updateMedecin(@PathVariable Long id, @Valid @RequestBody Medecin updatedMedecin) {
         Medecin existingMedecin = md.getMedecinById(id);
         if (existingMedecin == null) {
             return ResponseEntity.notFound().build();
         }
-        updatedMedecin.setId(id); // Ensure the ID remains the same
-         md.addMedecin(updatedMedecin); // save or update method
+        updatedMedecin.setId(id);
+         md.addMedecin(updatedMedecin);
          return ResponseEntity.status(HttpStatus.CREATED).body("Medecin updated successfully");
     }
 
-    // Get a medecin by ID
     @GetMapping("/{id}")
     public ResponseEntity<Medecin> getMedecinById(@PathVariable Long id) {
         Medecin medecin = md.getMedecinById(id);

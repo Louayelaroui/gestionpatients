@@ -1,8 +1,7 @@
-package com.formationspringboot.gestionpatients.web;
+package com.gestionpatients.web;
 
 
-import java.util.List;
-
+import com.gestionpatients.entites.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.formationspringboot.gestionpatients.entites.Patient;
-import com.formationspringboot.gestionpatients.service.IServicePatient;
+import com.gestionpatients.service.IServicePatient;
 
 import jakarta.validation.Valid;
 

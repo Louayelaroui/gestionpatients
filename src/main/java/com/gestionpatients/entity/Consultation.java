@@ -1,4 +1,4 @@
-package com.formationspringboot.gestionpatients.entites;
+package com.gestionpatients.entites;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
-package com.formationspringboot.gestionpatients.web;
+package com.gestionpatients.web;
 
-import com.formationspringboot.gestionpatients.entites.Consultation;
-import com.formationspringboot.gestionpatients.service.IServiceConsultation;
+import com.gestionpatients.entites.Consultation;
+import com.gestionpatients.service.IServiceConsultation;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
